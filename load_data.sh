@@ -13,6 +13,7 @@ if ! command -v algolia
 then
     echo "Installing Algolia CLI version $ALGOLIA_VERSION for $ARCHITECTURE systems..."
 
+    # Remove old downloads
     rm -r algolia_*
 
     # Download and export Algolia CLI
@@ -26,8 +27,10 @@ fi
 echo "Enter the admin API key for Algolia CLI: https://dashboard.algolia.com/account/api-keys/all?applicationId=$APPLICATION_ID"
 echo
 
+# User enters admin API key
 read ADMIN_API_KEY
 
+# Convert source file to ndjson if it does not already exist
 if ! test -f $IMPORT_FILE; then
     echo "Converting $SOURCE_FILE to $IMPORT_FILE"
     jq -c '.[]' "$SOURCE_FILE" > $IMPORT_FILE
@@ -35,4 +38,5 @@ fi
 
 echo "Loading data from $IMPORT_FILE..."
 
+# Algolia CLI import
 algolia objects import prod_luke -F $IMPORT_FILE --application-id $APPLICATION_ID --admin-api-key $ADMIN_API_KEY
