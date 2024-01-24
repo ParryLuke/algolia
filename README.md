@@ -10,3 +10,7 @@
 
 **ui/:**
 - Contains UI code for e-commerce example
+
+**Demos**
+DevBox for load data script: https://codesandbox.io/p/github/ParryLuke/algolia/main?workspaceId=e949b036-964e-45fa-88fe-f0b1ed33ffa4
+SandBox for UI: https://codesandbox.io/p/sandbox/example-react-instantsearch-e-commerce-mn7wz3?file=%2FApp.tsx%3A154%2C1-155%2C1
