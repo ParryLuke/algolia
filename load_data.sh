@@ -1,7 +1,8 @@
 #!/bin/bash
 
 APPLICATION_ID="494CB4DJ46"
-FILE="expected algolia payload.json"
+SOURCE_FILE="expected algolia payload.json"
+IMPORT_FILE="payload.ndjson"
 INDEX_NAME="prod_luke"
 ALGOLIA_VERSION="1.5.0"
 ARCHITECTURE="linux_amd64"
@@ -12,9 +13,7 @@ if ! command -v algolia
 then
     echo "Installing Algolia CLI version $ALGOLIA_VERSION for $ARCHITECTURE systems..."
 
-    # Clean up old downloads
-    #rm node-"$NODE_VERSION"
-    rm -r algolia_*.tar.gz
+    rm -r algolia_*
 
     # Download and export Algolia CLI
     wget https://github.com/algolia/cli/releases/download/v$ALGOLIA_VERSION/algolia_"$ALGOLIA_VERSION"_$ARCHITECTURE.tar.gz
@@ -29,6 +28,11 @@ echo
 
 read ADMIN_API_KEY
 
-echo "Loading data from $FILE..."
+if ! test -f $IMPORT_FILE; then
+    echo "Converting $SOURCE_FILE to $IMPORT_FILE"
+    jq -c '.[]' "$SOURCE_FILE" > $IMPORT_FILE
+fi
 
-algolia objects import prod_luke -F "$FILE" --application-id $APPLICATION_ID --admin-api-key $ADMIN_API_KEY
+echo "Loading data from $IMPORT_FILE..."
+
+algolia objects import prod_luke -F $IMPORT_FILE --application-id $APPLICATION_ID --admin-api-key $ADMIN_API_KEY
