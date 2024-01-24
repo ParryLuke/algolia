@@ -38,11 +38,11 @@ import './App.mobile.css';
 import type { Hit as AlgoliaHit } from 'instantsearch.js';
 
 const searchClient = algoliasearch(
-  'latency',
-  '6be0576ff61c053d5f9a3225e2a90f76'
+  '494CB4DJ46',
+  'd77fe1e5e18d53465c7c512c4298ed1d'
 );
 
-const indexName = 'instant_search';
+const indexName = 'prod_luke';
 const routing = getRouting(indexName);
 
 export function App() {
@@ -175,15 +175,15 @@ export function App() {
                 items={[
                   {
                     label: 'Sort by featured',
-                    value: 'instant_search',
+                    value: 'prod_luke',
                   },
                   {
                     label: 'Price ascending',
-                    value: 'instant_search_price_asc',
+                    value: 'prod_luke_price_asc',
                   },
                   {
                     label: 'Price descending',
-                    value: 'instant_search_price_desc',
+                    value: 'prod_luke_price_desc',
                   },
                 ]}
               />
